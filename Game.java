@@ -118,6 +118,11 @@ public class Game
             case QUIT:
                 wantToQuit = quit(command);
                 break;
+                
+            case LOOK:
+                look();
+                break;
+                
         }
         return wantToQuit;
     }
@@ -137,7 +142,21 @@ public class Game
         System.out.println("Your command words are:");
         parser.showCommands();
     }
-
+    
+        /**
+    *  This allows the player to look around the room and recieve the long
+    *  description over again.
+    */
+    private void look()
+    {
+        System.out.println(currentRoom.getLongDescription());   
+    }
+    
+    private void eat()
+    {
+        System.out.println("You have eaten and no longer feel hungry");
+    }
+    
     /** 
      * Try to go in one direction. If there is an exit, enter the new
      * room, otherwise print an error message.
