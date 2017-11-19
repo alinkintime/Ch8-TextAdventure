@@ -14,11 +14,18 @@
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.08.10
  */
+import java.util.Stack;
 
 public class Game 
 {
     private Parser parser;
     private Room currentRoom;
+    private Room lastRoom;
+    private Room cliff;
+    private Room win;
+    private Room fail;
+    private int timer = 0;
+    private Stack multiLastRooms = new Stack();
         
     /**
      * Create the game and initialise its internal map.
@@ -56,6 +63,9 @@ public class Game
         lab.setExit("east", office);
 
         office.setExit("west", lab);
+        
+        theater.addItem(new Item ("shiny stone", 0.1));
+        lab.addItem(new Item ("laser",0.1));
 
         currentRoom = outside;  // start game outside
     }

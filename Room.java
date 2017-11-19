@@ -1,6 +1,7 @@
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.HashSet;
 
 /**
  * Class Room - a room in an adventure game.
@@ -19,7 +20,8 @@ import java.util.Iterator;
 public class Room 
 {
     private String description;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private HashMap<String, Room> exits; // stores exits of this room.
+    private HashSet items;
 
     /**
      * Create a room described "description". Initially, it has
@@ -31,6 +33,7 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<String, Room>();
+        items = new HashSet();
     }
 
     /**
@@ -60,9 +63,30 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getExitString() + "\n" + getItemString();
     }
-
+     
+    /**
+     * Used to add items to the rooms
+     */
+    public void addItem(Item item) 
+    {
+     items.add(item);   
+    }
+    
+    /**
+     * Return a string describing items in a room, for example
+     * "Items : shiny rock, sturdy stick, water bottle"
+     */
+    private String getItemString()
+    {
+        String returnString = "Items:";
+       for(Iterator iter = items.iterator(); iter.hasNext(); )
+            returnString += " " + ((Item) iter.next()).getDescription();
+            
+            return returnString;
+    }
+    
     /**
      * Return a string describing the room's exits, for example
      * "Exits: north west".
