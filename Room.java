@@ -15,6 +15,9 @@ import java.util.HashSet;
  * 
  * @author  Michael Kölling and David J. Barnes
  * @version 2011.08.10
+ * 
+ * @author Chad Pearson
+ * @ version 2017
  */
 
 public class Room 
