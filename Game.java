@@ -64,7 +64,7 @@ public class Game
 
         office.setExit("west", lab);
         
-        theater.addItem(new Item ("shiny stone", 0.1));
+        theater.addItem(new Item ("Comedy and Tragedy masks", 0.1));
         lab.addItem(new Item ("laser",0.1));
 
         currentRoom = outside;  // start game outside
@@ -133,6 +133,10 @@ public class Game
                 look();
                 break;
                 
+            case BACK:
+                back();
+                break;
+                
         }
         return wantToQuit;
     }
@@ -164,7 +168,7 @@ public class Game
     
     private void eat()
     {
-        System.out.println("You have eaten and no longer feel hungry");
+        System.out.println("You have just eaten and no longer feel hungry");
     }
     
     /** 
@@ -188,11 +192,32 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            lastRoom = currentRoom;
+            multiLastRooms.push (lastRoom);
             currentRoom = nextRoom;
             System.out.println(currentRoom.getLongDescription());
         }
     }
-
+    
+       /**
+     * Added this method that uses a stack to remember which rooms you have been in, and it orders it for easy access.
+     * Also, trying to use the back command at the start of the game gives you an error statement if you try
+     */
+    private void back()
+    {
+        if (multiLastRooms.empty())
+        {
+            System.out.println("Well you wouldn't be lost if you could remember where you were before this...");
+        }
+        
+        else
+        {
+            currentRoom = (Room) multiLastRooms.pop();
+            System.out.println("You retrace your foot steps and find your way back to where you were earlier.");
+            System.out.println(currentRoom.getLongDescription());
+        }
+    }
+    
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
